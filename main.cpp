@@ -1,10 +1,10 @@
 // Problem 955 
 // Project Euler
 // Jacob Milham
+// This works for brute forcing it
 
 #include <iostream>
 #include <vector>
-#include <string>
 #include <vector>
 
 using namespace std;
@@ -12,19 +12,20 @@ using namespace std;
 bool is_triangle_number(unsigned long);
 void add_next_number(vector<unsigned long> *,bool,unsigned long);
 
-
 int main()
 {
 	vector<unsigned long> *numbers = new vector<unsigned long>(1,3);
 	int triangleCount = 0;
 	unsigned long currentNumber = 3;
 	unsigned long count = 1;
-	while (triangleCount<4) {
+	while (triangleCount<70) {
 		currentNumber = numbers->back();
-		cout << currentNumber << "\n";
+		//cout << currentNumber << "\n" << "\tindex:" << count << "\n";
 		if (is_triangle_number(currentNumber)) {
 			add_next_number(numbers,true,count);
 			triangleCount++;
+			cout << triangleCount <<"\n";
+
 		} else {
 			add_next_number(numbers,false,count);
 		}
@@ -37,7 +38,7 @@ int main()
 bool is_triangle_number(unsigned long number) {
 	bool found = false;
 	for(unsigned long i=0;i<number;i++) {
-		if (number == i*(i+1)/2) {
+		if (number == ((i*i) + i) / 2.0) {
 			found = true;
 			break;
 		}
