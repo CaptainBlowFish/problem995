@@ -9,7 +9,9 @@
 
 using namespace std;
 
-bool is_triangle_number(unsigned long);
+
+
+bool is_triangle_number(unsigned long,unsigned long &);
 void add_next_number(vector<unsigned long> *,bool,unsigned long);
 
 int main()
@@ -18,13 +20,15 @@ int main()
 	int triangleCount = 0;
 	unsigned long currentNumber = 3;
 	unsigned long count = 1;
+	unsigned long last_i_value = 0; //I know this is bad practice
+
 	while (triangleCount<70) {
 		currentNumber = numbers->back();
 		//cout << currentNumber << "\n" << "\tindex:" << count << "\n";
-		if (is_triangle_number(currentNumber)) {
+		if (is_triangle_number(currentNumber,last_i_value)) {
 			add_next_number(numbers,true,count);
 			triangleCount++;
-			cout << triangleCount <<"\n";
+			cout << triangleCount << ":" << currentNumber<<"\n";
 
 		} else {
 			add_next_number(numbers,false,count);
@@ -35,10 +39,13 @@ int main()
 	return EXIT_SUCCESS;
 }
 
-bool is_triangle_number(unsigned long number) {
+bool is_triangle_number(unsigned long number,unsigned long &last_i_value) {
 	bool found = false;
-	for(unsigned long i=0;i<number;i++) {
-		if (number == ((i*i) + i) / 2.0) {
+	unsigned long test_number = 0; 
+	for(unsigned long i=last_i_value;test_number <= number;i++) {
+		test_number = ((i*i) + i) / 2.0;
+		if (number == test_number) {
+			last_i_value = i;
 			found = true;
 			break;
 		}
