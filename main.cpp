@@ -1,15 +1,11 @@
 // Problem 955 
 // Project Euler
 // Jacob Milham
-// This works for brute forcing it
 
 #include <iostream>
 #include <vector>
-#include <vector>
 
 using namespace std;
-
-
 
 bool is_triangle_number(unsigned long,unsigned long &);
 void add_next_number(vector<unsigned long> *,bool,unsigned long);
@@ -20,11 +16,10 @@ int main()
 	int triangleCount = 0;
 	unsigned long currentNumber = 3;
 	unsigned long count = 1;
-	unsigned long last_i_value = 0; //I know this is bad practice
+	unsigned long last_i_value = 0; //this is to skip some redundant loops in checking for triangle numbers.
 
 	while (triangleCount<70) {
 		currentNumber = numbers->back();
-		//cout << currentNumber << "\n" << "\tindex:" << count << "\n";
 		if (is_triangle_number(currentNumber,last_i_value)) {
 			add_next_number(numbers,true,count);
 			triangleCount++;
