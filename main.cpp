@@ -22,7 +22,7 @@ int main()
 		if (is_triangle_number(currentNumber,last_i_value)) {
 			get_next_number(currentNumber,lastNumber,true);
 			triangleCount++;
-			cout << triangleCount << ":" << currentNumber<<"\n";
+			cout << triangleCount << ":" << currentNumber << "\n";
 
 		} else {
 			get_next_number(currentNumber,lastNumber,false);
@@ -36,8 +36,8 @@ int main()
 bool is_triangle_number(unsigned long number,unsigned long &last_i_value) {
 	bool found = false;
 	unsigned long test_number = 0; 
-	for(unsigned long i=last_i_value;test_number <= number;i++) {
-		test_number = ((i*i) + i) / 2.0;
+	for(unsigned long i=last_i_value;test_number <= number;++i) {
+		test_number = ((i*i) + i) / 2;
 		if (number == test_number) {
 			last_i_value = i;
 			found = true;
@@ -57,4 +57,4 @@ void get_next_number(unsigned long &currentNumber, unsigned long &lastNumber, bo
 		currentNumber = 2*temp - lastNumber + 1;
 		lastNumber = temp;
 	}
-}	
+}
