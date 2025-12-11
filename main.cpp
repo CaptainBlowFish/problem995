@@ -3,30 +3,29 @@
 // Jacob Milham
 
 #include <iostream>
-#include <vector>
 
 using namespace std;
 
 bool is_triangle_number(unsigned long,unsigned long &);
-void add_next_number(vector<unsigned long> *,bool,unsigned long);
+void get_next_number(unsigned long &, unsigned long &, bool);
 
 int main()
 {
-	vector<unsigned long> *numbers = new vector<unsigned long>(1,3);
 	int triangleCount = 0;
 	unsigned long currentNumber = 3;
-	unsigned long count = 1;
+	unsigned long lastNumber = 1; // fun fact 1 is the first triangle number
+	unsigned long count = 0;
 	unsigned long last_i_value = 0; //this is to skip some redundant loops in checking for triangle numbers.
 
 	while (triangleCount<70) {
-		currentNumber = numbers->back();
+		
 		if (is_triangle_number(currentNumber,last_i_value)) {
-			add_next_number(numbers,true,count);
+			get_next_number(currentNumber,lastNumber,true);
 			triangleCount++;
 			cout << triangleCount << ":" << currentNumber<<"\n";
 
 		} else {
-			add_next_number(numbers,false,count);
+			get_next_number(currentNumber,lastNumber,false);
 		}
 		count++;
 	}
@@ -47,14 +46,15 @@ bool is_triangle_number(unsigned long number,unsigned long &last_i_value) {
 	}
 	return found;
 }
-void add_next_number(vector<unsigned long> *numbers,bool triangle,unsigned long count) {
-	unsigned long current = numbers->back();
-	unsigned long last;
-	
-	if (triangle) {
-		numbers->push_back(current + 1);
+
+void get_next_number(unsigned long &currentNumber, unsigned long &lastNumber, bool triangleNumber) {
+	unsigned long temp;
+	if (triangleNumber){
+		lastNumber = currentNumber;
+		currentNumber += 1;
 	} else {
-		last = numbers->at(count-2);
-		numbers->push_back(2*current - last + 1);
+		temp = currentNumber;
+		currentNumber = 2*temp - lastNumber + 1;
+		lastNumber = temp;
 	}
-}
+}	
