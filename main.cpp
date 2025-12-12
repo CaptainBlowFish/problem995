@@ -19,12 +19,14 @@ int main()
 	unsigned long count = 0; // the number of items iterated over in the sequence
 	unsigned long last_i_value = 0; // this is to skip some redundant loops in checking for triangle numbers
 
+	cout << "triangle count : index : number\n"; // explains the numbers a bit
+
 	while (triangleCount<NTH_TRIANGLE_NUMBER) {
 		
 		if (is_triangle_number(currentNumber,last_i_value)) {
-			cout << triangleCount << ":" << currentNumber << "\n";
-			get_next_number(currentNumber,lastNumber,true);
 			triangleCount++;
+			cout << triangleCount << " : " << count <<" : " << currentNumber << "\n";
+			get_next_number(currentNumber,lastNumber,true);
 
 		} else {
 			get_next_number(currentNumber,lastNumber,false);
@@ -36,16 +38,17 @@ int main()
 }
 
 bool is_triangle_number(unsigned long number,unsigned long &last_i_value) {
+	number *=2; // this is to not have to divide test number by 2 each time
 	bool found = false;
-	unsigned long test_number = 0; 
-	for(unsigned long i=last_i_value;test_number <= number;++i) {
-		test_number = ((i*i) + i) / 2;
-		if (number == test_number) {
-			last_i_value = i;
-			found = true;
-			break;
-		}
+	unsigned long test_number = ((last_i_value*last_i_value) + last_i_value);
+	while (test_number < number) {
+		last_i_value++;
+		test_number = ((last_i_value*last_i_value) + last_i_value);
 	}
+	if (number == test_number) {
+		found = true;
+	}
+	
 	return found;
 }
 
